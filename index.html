@@ -1,100 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
-    <title>EWANTO GmbH - Add New Product</title>
-   <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EWANTO GmbH - Neues Produkt hinzufügen</title>
+    <link rel="stylesheet" href="main.css">
 </head>
-<body>
-    <h2 style="color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px;">
-        EWANTO GmbH - Add New Product
-    </h2>
 
-    <!-- Form to collect user information -->
-    <form id="productForm">
-        <div>
-            <label for="manufacturer">Manufacturer:</label>
+<body>
+    <header>
+        <h2>EWANTO GmbH - Neues Produkt hinzufügen</h2>
+    </header>
+
+    <form id="productForm" class="form-container">
+        <div class="input-group">
+            <label for="manufacturer">Hersteller:</label>
             <input type="text" id="manufacturer" name="manufacturer" required>
         </div>
-        <div>
-            <label for="series">Series:</label>
+        <div class="input-group">
+            <label for="series">Serie:</label>
             <input type="text" id="series" name="series" required>
         </div>
-        <div>
-            <label for="batteryCount">Batteries/Box:</label>
-            <input type="text" id="batteryCount" name="batteryCount" value="6 pcs" required>
+        <div class="input-group">
+            <label for="batteryCount">Batterien/Box:</label>
+            <input type="text" id="batteryCount" name="batteryCount" value="6 Stk" required>
         </div>
-        <div>
-            <label for="price250">Price for 250:</label>
-            <input type="text" id="price250" name="price250" required>
+        <div class="input-group">
+            <label for="price250">Preis für 250:</label>
+            <input type="text" id="price250" name="price250" required value="€">
         </div>
-        <div>
-            <label for="price500">Price for 500:</label>
-            <input type="text" id="price500" name="price500" required>
+        <div class="input-group">
+            <label for="price500">Preis für 500:</label>
+            <input type="text" id="price500" name="price500" required value="€">
         </div>
-        <div>
-            <label for="price1000">Price for 1,000:</label>
-            <input type="text" id="price1000" name="price1000" required>
+        <div class="input-group">
+            <label for="price1000">Preis für 1.000:</label>
+            <input type="text" id="price1000" name="price1000" required value="€">
         </div>
-        <div>
-            <label for="price5000">Price for 5,000:</label>
-            <input type="text" id="price5000" name="price5000" placeholder="Leave blank if not available">
+        <div class="input-group">
+            <label for="price5000">Preis für 5.000:</label>
+            <input type="text" id="price5000" name="price5000" required value="€">
         </div>
-        <div>
-            <label for="imageFile">Upload Image:</label>
+        <div class="input-group">
+            <label for="imageFile">Bild hochladen:</label>
             <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
         </div>
-        <div>
-            <input type="submit" value="Add Product">
+        <div class="button-group">
+            <input type="submit" value="Produkt hinzufügen">
+            <button id="dl-pdf">PDF herunterladen</button>
         </div>
-        <button id="dl-pdf">pdf</button>
     </form>
-<div id="d-pdf">
-    <!-- Table to display the product data -->
-    <table id="productTable">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Manufacturer</th>
-                <th>Series</th>
-                <th>Batteries/Box</th>
-                <th>Price for 250</th>
-                <th>Price for 500</th>
-                <th>Price for 1,000</th>
-                <th>Price for 5,000</th>
-            </tr>
-        </thead>
-        
-        <tbody >
-            <!-- Rows will be dynamically added here -->
-        </tbody>
-    </table>
 
-    <!-- Footer similar to the original example -->
-    <footer style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9em;">
-        <p>
-            EWANTO GmbH • Am Studio 2A • 12489 Berlin<br>
-            ☎ +49 30 770 192 939 • 📧 b2b@ewanto.de<br>
-            Handelsregister: HRB 149688 • USt-IdNr: DE28 1218027
-        </p>
-    </footer>
+    <div id="d-pdf">
+        <h2>Topseller Preisliste DE</h2>
+        <div class="company-info">
+            Stand: 01.07.2024<br>
+            EWANTO GmbH<br>
+            Am Studio 2A D-12489 Berlin<br>
+            Telefon: +49 30 / 770 192 939<br>
+            E-Mail: b2b@ewanto.de<br>
+            Internet: www.hgbgh.de
+        </div>
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th>Bild</th>
+                    <th>Hersteller</th>
+                    <th>Serie</th>
+                    <th>Batterien/Box</th>
+                    <th>Preis für 250</th>
+                    <th>Preis für 500</th>
+                    <th>Preis für 1.000</th>
+                    <th>Preis für 5.000</th>
+                    <th class="delete-btn">Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <footer>
+            <p>
+                EWANTO GmbH • Am Studio 2A • 12489 Berlin<br>
+                ☎ +49 30 770 192 939 • Fax +49 (0) 030 / 770 192 935 • 📧 b2b@ewanto.de • www.hgbgh.de<br>
+                Geschäftsführer Christoph-Benjamin Sponholz <br>
+                Handelsregister Amtsgericht Charlottenburg HRB 149688 • USt-IdNr: DE28 1218027
+            </p>
+        </footer>
     </div>
+
     <script src="html2pdf.bundle.min.js"></script>
     <script src="main.js"></script>
-    <script type="text/javascript">
-        document.getElementById('dl-pdf').onclick=function(){
-            let element=document.getElementById('productTable');
-            let opt = {
-                margin: 0,
-                filename: 'mylist.pdf',
-                Image: {type: 'jpeg',quality: 1},
-                html2canvas: { scale : 2},
-                jsPDF: {unit: 'in', format: 'letter',orientation:'portrait'}
-            };
-            html2pdf(element,opt)
-        };
-    </script>
 </body>
 
 </html>

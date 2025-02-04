@@ -1,78 +1,197 @@
- body {
-     font-family: Arial, sans-serif;
-     margin: 20px;
- }
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
 
- /* Table styles similar to the original example */
- table {
-     border-collapse: collapse;
-     width: 100%;
-     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-     margin: 20px 0;
- }
+/* Header Styles */
+h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+}
 
- th,
- td {
-     border: 1px solid #ddd;
-     padding: 12px;
-     text-align: center;
-     vertical-align: middle;
- }
+#dl-pdf{
+    background-color: #e75454;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    flex-basis: 100%;
+    margin-top: 20px;
+}
 
- th {
-     background-color: #4CAF50;
-     color: white;
-     font-weight: bold;
- }
+/* Form Container styles */
+.form-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 14px;
+    display: flex; /* Flexbox aktivieren */
+    flex-wrap: wrap; /* Umbrüche zulassen */
+    justify-content: space-between; /* Abstände zwischen den Elementen */
+}
 
- tr:nth-child(even) {
-     background-color: #f9f9f9;
- }
+/* Form field styles */
+.form-container div {
+    flex: 1 1 45%; /* Jedes Eingabefeld nimmt maximal 45% der Breite ein */
+    margin-bottom: 15px; /* Abstand nach unten */
+}
 
- .product-image {
-     width: 100px;
-     height: auto;
-     border-radius: 4px;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- }
+label {
+    display: block;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 5px; /* Abstand nach unten */
+}
 
- .price-na {
-     color: #999;
-     font-style: italic;
- }
+input[type="text"],
+input[type="file"],
+input[type="number"] {
+    padding: 12px;
+    width: 100%; /* Eingabefelder nehmen die ganze Breite des Containers ein */
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
 
- /* Form styles */
- form {
-     margin-bottom: 30px;
-     padding: 15px;
-     border: 1px solid #ddd;
-     border-radius: 5px;
-     background: #f8f9fa;
- }
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    flex-basis: 100%; /* Button nimmt volle Breite ein */
+    margin-top: 20px; /* Abstand oben */
+}
 
- form div {
-     margin-bottom: 10px;
- }
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
 
- label {
-     display: inline-block;
-     width: 150px;
-     font-weight: bold;
- }
+/* Table styles */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 30px 0;
+    border-radius: 8px;
+}
 
- input[type="text"],
- input[type="number"],
- input[type="file"] {
-     padding: 5px;
-     width: 250px;
- }
+th, td {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 13px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    border-bottom: 1px solid #ddd;
+}
 
- input[type="submit"] {
-     background-color: #4CAF50;
-     color: #fff;
-     border: none;
-     padding: 10px 20px;
-     cursor: pointer;
-     font-size: 1em;
-     border-radius: 3px;
- }
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td:hover {
+    background-color: #f1f1f1;
+}
+
+.product-image {
+    width: 60px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.price-na {
+    color: #999;
+    font-style: italic;
+}
+
+/* Button Styles for Delete */
+button.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: background-color 0.3s;
+}
+
+button.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Design for Mobile */
+@media screen and (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .form-container div {
+        flex: 1 1 100%; /* Auf kleinen Geräten nehmen Eingabefelder 100% der Breite ein */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+        width: 100%;
+    }
+
+    label {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
