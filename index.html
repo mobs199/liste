@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EWANTO GmbH - Add New Product</title>
+   <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px;">
+        EWANTO GmbH - Add New Product
+    </h2>
+
+    <!-- Form to collect user information -->
+    <form id="productForm">
+        <div>
+            <label for="manufacturer">Manufacturer:</label>
+            <input type="text" id="manufacturer" name="manufacturer" required>
+        </div>
+        <div>
+            <label for="series">Series:</label>
+            <input type="text" id="series" name="series" required>
+        </div>
+        <div>
+            <label for="batteryCount">Batteries/Box:</label>
+            <input type="text" id="batteryCount" name="batteryCount" value="6 pcs" required>
+        </div>
+        <div>
+            <label for="price250">Price for 250:</label>
+            <input type="text" id="price250" name="price250" required>
+        </div>
+        <div>
+            <label for="price500">Price for 500:</label>
+            <input type="text" id="price500" name="price500" required>
+        </div>
+        <div>
+            <label for="price1000">Price for 1,000:</label>
+            <input type="text" id="price1000" name="price1000" required>
+        </div>
+        <div>
+            <label for="price5000">Price for 5,000:</label>
+            <input type="text" id="price5000" name="price5000" placeholder="Leave blank if not available">
+        </div>
+        <div>
+            <label for="imageFile">Upload Image:</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
+        </div>
+        <div>
+            <input type="submit" value="Add Product">
+        </div>
+        <button id="dl-pdf">pdf</button>
+    </form>
+<div id="d-pdf">
+    <!-- Table to display the product data -->
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Manufacturer</th>
+                <th>Series</th>
+                <th>Batteries/Box</th>
+                <th>Price for 250</th>
+                <th>Price for 500</th>
+                <th>Price for 1,000</th>
+                <th>Price for 5,000</th>
+            </tr>
+        </thead>
+        
+        <tbody >
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <!-- Footer similar to the original example -->
+    <footer style="margin-top: 40px; text-align: center; color: #666; font-size: 0.9em;">
+        <p>
+            EWANTO GmbH • Am Studio 2A • 12489 Berlin<br>
+            ☎ +49 30 770 192 939 • 📧 b2b@ewanto.de<br>
+            Handelsregister: HRB 149688 • USt-IdNr: DE28 1218027
+        </p>
+    </footer>
+    </div>
+    <script src="html2pdf.bundle.min.js"></script>
+    <script src="main.js"></script>
+    <script type="text/javascript">
+        document.getElementById('dl-pdf').onclick=function(){
+            let element=document.getElementById('productTable');
+            let opt = {
+                margin: 0,
+                filename: 'mylist.pdf',
+                Image: {type: 'jpeg',quality: 1},
+                html2canvas: { scale : 2},
+                jsPDF: {unit: 'in', format: 'letter',orientation:'portrait'}
+            };
+            html2pdf(element,opt)
+        };
+    </script>
+</body>
+
+</html>
