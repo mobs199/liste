@@ -2,96 +2,118 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EWANTO GmbH - Neues Produkt hinzufügen</title>
-    <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EWANTO GmbH - Neues Produkt hinzufügen</title>
+  <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-    <header>
-        <h2>EWANTO GmbH - Neues Produkt hinzufügen</h2>
-    </header>
+  <header>
+    <h2>EWANTO GmbH - Neues Produkt hinzufügen</h2>
+  </header>
 
-    <form id="productForm" class="form-container">
-        <div class="input-group">
-            <label for="manufacturer">Hersteller:</label>
-            <input type="text" id="manufacturer" name="manufacturer" required>
-        </div>
-        <div class="input-group">
-            <label for="series">Serie:</label>
-            <input type="text" id="series" name="series" required>
-        </div>
-        <div class="input-group">
-            <label for="batteryCount">Batterien/Box:</label>
-            <input type="text" id="batteryCount" name="batteryCount" value="6 Stk" required>
-        </div>
-        <div class="input-group">
-            <label for="price250">Preis für 250:</label>
-            <input type="text" id="price250" name="price250" required value="€">
-        </div>
-        <div class="input-group">
-            <label for="price500">Preis für 500:</label>
-            <input type="text" id="price500" name="price500" required value="€">
-        </div>
-        <div class="input-group">
-            <label for="price1000">Preis für 1.000:</label>
-            <input type="text" id="price1000" name="price1000" required value="€">
-        </div>
-        <div class="input-group">
-            <label for="price5000">Preis für 5.000:</label>
-            <input type="text" id="price5000" name="price5000" required value="€">
-        </div>
-        <div class="input-group">
-            <label for="imageFile">Bild hochladen:</label>
-            <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
-        </div>
-        <div class="button-group">
-            <input type="submit" value="Produkt hinzufügen">
-            <button id="dl-pdf">PDF herunterladen</button>
-        </div>
-    </form>
-
-    <div id="d-pdf">
-        <h2>Topseller Preisliste DE</h2>
-        <div class="company-info">
-            Stand: 01.07.2024<br>
-            EWANTO GmbH<br>
-            Am Studio 2A D-12489 Berlin<br>
-            Telefon: +49 30 / 770 192 939<br>
-            E-Mail: b2b@ewanto.de<br>
-            Internet: www.hgbgh.de
-        </div>
-        <table id="productTable">
-            <thead>
-                <tr>
-                    <th>Bild</th>
-                    <th>Hersteller</th>
-                    <th>Serie</th>
-                    <th>Batterien/Box</th>
-                    <th>Preis für 250</th>
-                    <th>Preis für 500</th>
-                    <th>Preis für 1.000</th>
-                    <th>Preis für 5.000</th>
-                    <th class="delete-btn">Aktion</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <footer>
-            <p>
-                EWANTO GmbH • Am Studio 2A • 12489 Berlin<br>
-                ☎ +49 30 770 192 939 • Fax +49 (0) 030 / 770 192 935 • 📧 b2b@ewanto.de • www.hgbgh.de<br>
-                Geschäftsführer Christoph-Benjamin Sponholz <br>
-                Handelsregister Amtsgericht Charlottenburg HRB 149688 • USt-IdNr: DE28 1218027
-            </p>
-        </footer>
+  <form id="productForm" class="form-container">
+    <div class="input-group">
+      <label for="sku">SKU:</label>
+      <input type="text" id="sku" name="sku" required placeholder="z.B. L5017">
+    </div>
+    <div class="input-group">
+      <label for="basePrice">Preis:</label>
+      <input type="text" id="basePrice" name="basePrice" readonly placeholder="Wird automatisch ausgefüllt">
+    </div>
+    <div class="input-group">
+      <label for="descriptionText">Beschreibung:</label>
+      <textarea id="descriptionText" name="descriptionText" rows="4" readonly placeholder="Wird automatisch ausgefüllt"></textarea>
+    </div>
+    <div class="input-group">
+      <label for="descriptionBulletpoint">Beschreibung Bulletpoint:</label>
+      <textarea id="descriptionBulletpoint" name="descriptionBulletpoint" rows="3" readonly placeholder="Wird automatisch ausgefüllt"></textarea>
+    </div>
+    <div class="input-group">
+      <label for="imageUrl">Bild URL:</label>
+      <input type="text" id="imageUrl" name="imageUrl" readonly placeholder="Wird automatisch ausgefüllt">
     </div>
 
-    <script src="html2pdf.bundle.min.js"></script>
-    <script src="main.js"></script>
+    <div class="input-group">
+      <label for="manufacturer">Hersteller:</label>
+      <input type="text" id="manufacturer" name="manufacturer" required>
+    </div>
+    <div class="input-group">
+      <label for="series">Serie:</label>
+      <input type="text" id="series" name="series" required>
+    </div>
+    <div class="input-group">
+      <label for="batteryCount">Batterien/Box:</label>
+      <input type="text" id="batteryCount" name="batteryCount" value="6 Stk" required>
+    </div>
+    <div class="input-group">
+      <label for="price250">Preis für 250:</label>
+      <input type="text" id="price250" name="price250" required value="€">
+    </div>
+    <div class="input-group">
+      <label for="price500">Preis für 500:</label>
+      <input type="text" id="price500" name="price500" required value="€">
+    </div>
+    <div class="input-group">
+      <label for="price1000">Preis für 1.000:</label>
+      <input type="text" id="price1000" name="price1000" required value="€">
+    </div>
+    <div class="input-group">
+      <label for="price5000">Preis für 5.000:</label>
+      <input type="text" id="price5000" name="price5000" required value="€">
+    </div>
+    <div class="input-group">
+      <label for="imageFile">Bild hochladen:</label>
+      <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
+    </div>
+    <div class="button-group">
+      <input type="submit" value="Produkt hinzufügen">
+      <button id="dl-pdf" type="button">PDF herunterladen</button>
+    </div>
+  </form>
+
+  <div id="d-pdf">
+    <h2>Topseller Preisliste DE</h2>
+    <div class="company-info">
+      Stand: 01.07.2024<br>
+      EWANTO GmbH<br>
+      Am Studio 2A D-12489 Berlin<br>
+      Telefon: +49 30 / 770 192 939<br>
+      E-Mail: b2b@ewanto.de<br>
+      Internet: www.hgbgh.de
+    </div>
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>Bild</th>
+          <th>Hersteller</th>
+          <th>Serie</th>
+          <th>Batterien/Box</th>
+          <th>Preis für 250</th>
+          <th>Preis für 500</th>
+          <th>Preis für 1.000</th>
+          <th>Preis für 5.000</th>
+          <th class="delete-btn">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <footer>
+      <p>
+        EWANTO GmbH • Am Studio 2A • 12489 Berlin<br>
+        ☎ +49 30 770 192 939 • Fax +49 (0) 030 / 770 192 935 • 📧 b2b@ewanto.de • www.hgbgh.de<br>
+        Geschäftsführer Christoph-Benjamin Sponholz <br>
+        Handelsregister Amtsgericht Charlottenburg HRB 149688 • USt-IdNr: DE28 1218027
+      </p>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script src="html2pdf.bundle.min.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
