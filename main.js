@@ -57,18 +57,12 @@ document.getElementById('dl-pdf').onclick = function () {
     let opt = {
         margin: 0,
         filename: 'mylist.pdf',
-        Image: {type: 'jpeg',quality: 1},
+        Image: {type: 'jpeg',quality: 0.98},
         html2canvas: { scale : 10},
         jsPDF: {unit: 'in', format: 'letter',orientation:'portrait'}
     };
     html2pdf(element, opt);
 };
-
-
-
-
-
-
 
 let csvData = [];
 
@@ -81,77 +75,100 @@ Papa.parse("EWANTO_Produkt_js.csv", {
   skipEmptyLines: true,
   complete: function (results) {
     csvData = results.data || [];
-
     console.log("CSV Data loaded:", csvData);
-    if (csvData.length === 0) {
+    
+    if (csvData.length > 0) {
+      Object.keys(csvData[0]).forEach((key) => {
+        const cleanKey = key.replace(/\uFEFF/g, '').trim().toLowerCase();
+        if (cleanKey === "sku") {
+          skuKey = key;
+        }
+      });
+      console.log("Using SKU key:", skuKey);
+    } else {
       console.warn("Die CSV-Datei ist leer oder konnte nicht geladen werden.");
-      return;
     }
-
-
-    const firstRowKeys = Object.keys(csvData[0]).map(k => k.replace(/\uFEFF/g, '').trim());
-    console.log("First row keys:", firstRowKeys);
-
-    Object.keys(csvData[0]).forEach((key) => {
-      const cleanKey = key.replace(/\uFEFF/g, '').trim().toLowerCase();
-      if (cleanKey === "sku") {
-        skuKey = key;
-      }
-    });
-
-    console.log("Using SKU key:", skuKey);
-
-    csvData.forEach((item, index) => {
-      console.log(`Row ${index}, SKU=`, item[skuKey]);
-    });
   },
   error: function (err) {
     console.error("Error loading CSV:", err);
   },
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const skuInput = document.getElementById("sku");
   if (!skuInput) {
-    console.warn("Kein Feld mit ID='sku' gefunden!");
+    console.error("Kein SKU-Feld mit ID='sku' gefunden!");
     return;
   }
-
-  skuInput.addEventListener("change", function () {
+  
+  skuInput.addEventListener("input", function () {
     const skuValue = this.value.trim();
     if (!skuValue) return;
-
+    
     const foundItem = csvData.find((item) => {
       if (!item[skuKey]) return false;
       return item[skuKey].toString().trim() === skuValue;
     });
-
+    
     if (foundItem) {
       console.log("Gefundenes Produkt:", foundItem);
-
-      const basePriceField              = document.getElementById("basePrice");
-      const descriptionTextField        = document.getElementById("descriptionText");
-      const descriptionBulletpointField = document.getElementById("descriptionBulletpoint");
-      const imageUrlField               = document.getElementById("imageUrl");
-      const imageUrl2Field              = document.getElementById("imageUrl2");
-      const manufacturerField           = document.getElementById("manufacturer");
-
-      if (basePriceField)              basePriceField.value              = foundItem.preis_ebay_summe         || "";
-      if (descriptionTextField)        descriptionTextField.value        = foundItem.description_text         || "";
-      if (descriptionBulletpointField) descriptionBulletpointField.value = foundItem.description_bulletpoint  || "";
-      if (imageUrlField)               imageUrlField.value               = foundItem.public_image_0           || "";
-      if (imageUrl2Field)              imageUrl2Field.value              = foundItem.public_image_1           || "";
-      if (manufacturerField)           manufacturerField.value           = foundItem.hersteller_name          || "";
-
+      document.getElementById("name").value = foundItem.name || "";
+      document.getElementById("hersteller_name").value = foundItem.hersteller_name || "";
+      document.getElementById("hersteller_nr").value = foundItem.hersteller_nr || "";
+      document.getElementById("public_image_0").value = foundItem.public_image_0 || "";
+      document.getElementById("preis_ebay_summe").value = foundItem.preis_ebay_summe || "";
     } else {
-      alert("Kein Produkt mit dieser SKU gefunden!");
-      console.warn("Die SKU", skuValue, "ist nicht in csvData vorhanden.");
-
-      ["basePrice","descriptionText","descriptionBulletpoint","imageUrl","imageUrl2","manufacturer"].forEach((id) => {
-        const field = document.getElementById(id);
-        if (field) field.value = "";
+      console.warn("SKU", skuValue, "nicht in CSV-Daten gefunden.");
+      ["name", "hersteller_name", "hersteller_nr", "public_image_0", "preis_ebay_summe"].forEach((id) => {
+        document.getElementById(id).value = "";
       });
     }
+  });
+
+  document.getElementById("productForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    
+    const name = document.getElementById("name").value;
+    const herstellerName = document.getElementById("hersteller_name").value;
+    const herstellerNr = document.getElementById("hersteller_nr").value;
+    const imageUrl = document.getElementById("public_image_0").value;
+    const preis = document.getElementById("preis_ebay_summe").value;
+
+    const tbody = document.querySelector("#productTable tbody");
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td><img src="${imageUrl}" alt="${name}" class="product-image" style="max-width:50px;"></td>
+      <td>${herstellerName}</td>
+      <td>${name}</td>
+      <td>${herstellerNr}</td>
+      <td>${preis}</td>
+      <td><button class="delete-btn">Löschen</button></td>
+    `;
+    tbody.appendChild(newRow);
+    
+    newRow.querySelector(".delete-btn").addEventListener("click", function () {
+      if (confirm("Sind Sie sicher, dass Sie dieses Produkt löschen möchten?")) {
+        newRow.remove();
+      }
+    });
+    
+    document.getElementById("productForm").reset();
+  });
+
+  document.getElementById("dl-pdf").addEventListener("click", function () {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach(btn => btn.style.display = "none");
+    
+    const element = document.getElementById("d-pdf");
+    const opt = {
+      margin: 0,
+      filename: 'Produktliste.pdf',
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save().then(() => {
+      deleteButtons.forEach(btn => btn.style.display = "");
+    });
   });
 });
