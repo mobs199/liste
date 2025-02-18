@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("dl-pdf").addEventListener("click", function () {
     const element = document.getElementById("d-pdf");
     const opt = {
-      margin: 0,
+      margin: 1,
       filename: 'Produktliste.pdf',
       image: { type: 'jpeg', quality: 0.99 },
       html2canvas: { scale: 2, useCORS: true, allowTaint: false },
