@@ -1,3 +1,4 @@
+document.getElementById("current-date").innerHTML = new Date().toLocaleDateString("de-DE");
 let csvData = [];
 let skuKey = "sku";
 
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
 
   document.getElementById("productForm").addEventListener("submit", function (e) {
     e.preventDefault();
