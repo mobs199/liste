@@ -13,28 +13,8 @@
 
   <form id="productForm" class="form-container">
     <div class="input-group">
-      <label for="sku">SKU:</label>
-      <input type="text" id="sku" name="sku" required placeholder="z.B. L5017">
-    </div>
-    <div class="input-group">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" readonly placeholder="Automatisch ausgefüllt">
-    </div>
-    <div class="input-group">
-      <label for="hersteller_name">Hersteller Name:</label>
-      <input type="text" id="hersteller_name" name="hersteller_name" readonly placeholder="Automatisch ausgefüllt">
-    </div>
-    <div class="input-group">
-      <label for="hersteller_nr">Hersteller Nr:</label>
-      <input type="text" id="hersteller_nr" name="hersteller_nr" readonly placeholder="Automatisch ausgefüllt">
-    </div>
-    <div class="input-group">
-      <label for="public_image_0">Bild URL:</label>
-      <input type="text" id="public_image_0" name="public_image_0"  placeholder="Automatisch ausgefüllt">
-    </div>
-    <div class="input-group">
-      <label for="preis_ebay_summe">Preis:</label>
-      <input type="text" id="preis_ebay_summe" name="preis_ebay_summe" readonly placeholder="Automatisch ausgefüllt">
+      <label for="sku">SKU(s):</label>
+      <textarea id="sku" name="sku" required placeholder=" SKU  "></textarea>
     </div>
     <div class="button-group">
       <input type="submit" value="Produkt hinzufügen">
@@ -81,5 +61,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   <script src="html2pdf.bundle.min.js"></script>
   <script src="main.js"></script>
+
 </body>
 </html>
