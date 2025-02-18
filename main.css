@@ -95,8 +95,8 @@ table {
     table-layout: fixed;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    margin: 30px 0;
     border-radius: 8px;
+    font-size: 2px;
 }
 
 th, td {
@@ -127,7 +127,7 @@ td:hover {
 
 tr, td, th {
   page-break-inside: avoid !important;
-  break-inside: avoid !important;
+  /*break-inside: avoid !important;*/
 }
 
 .product-image {
@@ -145,8 +145,6 @@ tr, td, th {
 
 
 footer {
-    margin-top: 40px;
-    padding: 20px;
     background-color: #fff;
     text-align: center;
     color: #666;
