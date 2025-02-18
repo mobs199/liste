@@ -17,7 +17,8 @@ h2 {
     margin-bottom: 30px;
 }
 
-#dl-pdf{
+/* PDF download button */
+#dl-pdf {
     background-color: #e75454;
     color: white;
     border: none;
@@ -39,15 +40,15 @@ h2 {
     max-width: 900px;
     margin: 0 auto;
     font-size: 14px;
-    display: flex; /* Flexbox aktivieren */
-    flex-wrap: wrap; /* Umbrüche zulassen */
-    justify-content: space-between; /* Abstände zwischen den Elementen */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 /* Form field styles */
 .form-container div {
-    flex: 1 1 45%; /* Jedes Eingabefeld nimmt maximal 45% der Breite ein */
-    margin-bottom: 15px; /* Abstand nach unten */
+    flex: 1 1 45%;
+    margin-bottom: 15px;
 }
 
 label {
@@ -55,14 +56,14 @@ label {
     font-weight: 500;
     color: #333;
     font-size: 14px;
-    margin-bottom: 5px; /* Abstand nach unten */
+    margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="file"],
 input[type="number"] {
     padding: 12px;
-    width: 100%; /* Eingabefelder nehmen die ganze Breite des Containers ein */
+    width: 100%;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -79,8 +80,8 @@ input[type="submit"] {
     font-size: 14px;
     border-radius: 4px;
     transition: background-color 0.3s;
-    flex-basis: 100%; /* Button nimmt volle Breite ein */
-    margin-top: 20px; /* Abstand oben */
+    flex-basis: 100%;
+    margin-top: 20px;
 }
 
 input[type="submit"]:hover {
@@ -124,6 +125,11 @@ td:hover {
     background-color: #f1f1f1;
 }
 
+tr, td, th {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
 .product-image {
     width: 60px;
     height: auto;
@@ -136,7 +142,7 @@ td:hover {
     font-style: italic;
 }
 
-/* Button Styles for Delete */
+/* Delete button styles */
 button.delete-btn {
     background-color: #e74c3c;
     color: white;
@@ -174,24 +180,32 @@ footer p {
         padding: 15px;
         width: 100%;
     }
-
     .form-container div {
-        flex: 1 1 100%; /* Auf kleinen Geräten nehmen Eingabefelder 100% der Breite ein */
+        flex: 1 1 100%;
     }
-
     input[type="text"],
     input[type="number"],
     input[type="file"] {
         width: 100%;
     }
-
     label {
         width: 100%;
         margin-bottom: 8px;
     }
-
     th, td {
         font-size: 12px;
         padding: 10px;
     }
+}
+
+@media print {
+  #d-pdf {
+    width: 240mm;
+    min-height: 297mm;
+    margin: 0 auto;
+  }
+  .product-image {
+    max-width: 100px !important;
+    height: auto;
+  }
 }
