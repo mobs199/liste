@@ -135,6 +135,7 @@ tr, td, th {
     height: auto;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer; 
 }
 
 .price-na {
@@ -142,23 +143,7 @@ tr, td, th {
     font-style: italic;
 }
 
-/* Delete button styles */
-button.delete-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 13px;
-    transition: background-color 0.3s;
-}
 
-button.delete-btn:hover {
-    background-color: #c0392b;
-}
-
-/* Footer Styles */
 footer {
     margin-top: 40px;
     padding: 20px;
@@ -200,9 +185,8 @@ footer p {
 
 @media print {
   #d-pdf {
-    width: 240mm;
-    min-height: 297mm;
-    margin: 0 auto;
+    width: 210mm;
+    min-height: 400mm;
   }
   .product-image {
     max-width: 100px !important;

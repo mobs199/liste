@@ -55,44 +55,45 @@ document.addEventListener("DOMContentLoaded", () => {
     const herstellerName = document.getElementById("hersteller_name").value;
     const herstellerNr = document.getElementById("hersteller_nr").value;
     const imageUrl = document.getElementById("public_image_0").value;
-    const preis = document.getElementById("preis_ebay_summe").value;
-    
+    const preisEbaySumme = parseFloat(document.getElementById("preis_ebay_summe").value) || 0; 
+    const preis250 = (preisEbaySumme).toFixed(2) + "€";
+    const preis500 = (preisEbaySumme / 2).toFixed(2) + "€";
+    const preis1000 = (preisEbaySumme / 4).toFixed(2) + "€";
+    const preis5000 = (preisEbaySumme / 6).toFixed(2) + "€";
     const tbody = document.querySelector("#productTable tbody");
+
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
-      <td><img src="${imageUrl}" alt="jpeg" class="product-image"></td>
+      <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
       <td>${herstellerName}</td>
       <td>${name}</td>
       <td>${herstellerNr}</td>
-      <td>${preis}</td>
-      <td><button class="delete-btn">Löschen</button></td>
+      <td>${preis250}</td>
+      <td>${preis500}</td>
+      <td>${preis1000}</td>
+      <td>${preis5000}</td>
     `;
     tbody.appendChild(newRow);
     
-    newRow.querySelector(".delete-btn").addEventListener("click", function () {
+    newRow.querySelector(".product-image").addEventListener("dblclick", function () {
       if (confirm("Sind Sie sicher, dass Sie dieses Produkt löschen möchten?")) {
         newRow.remove();
       }
     });
-    
+
     document.getElementById("productForm").reset();
   });
 
   document.getElementById("dl-pdf").addEventListener("click", function () {
-    const deleteButtons = document.querySelectorAll(".delete-btn");
-    deleteButtons.forEach(btn => btn.style.display = "none");
-    
     const element = document.getElementById("d-pdf");
     const opt = {
-      margin: 10,
+      margin: 0,
       filename: 'Produktliste.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
+      image: { type: 'jpeg', quality: 0.99 },
+      html2canvas: { scale: 2, useCORS: true, allowTaint: false },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       pagebreak: { mode: 'avoid-all' }
     };
-    html2pdf().set(opt).from(element).save().then(() => {
-      deleteButtons.forEach(btn => btn.style.display = "");
-    });
+    html2pdf().set(opt).from(element).save();
   });
 });
