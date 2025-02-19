@@ -80,17 +80,4 @@
 
         document.getElementById("productForm").reset();
       });
-
-     document.getElementById("dl-pdf").addEventListener("click", function () {
-        const element = document.getElementById("d-pdf");
-        const opt = {
-          margin: 1,
-          filename: 'Produktliste.pdf',
-          image: { type: 'jpeg', quality: 0.99 },
-          html2canvas: { scale: 2, useCORS: true, allowTaint: false },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-          pagebreak: { mode: 'avoid-all' }
-        };
-        html2pdf().set(opt).from(element).save();
-      });
     });
