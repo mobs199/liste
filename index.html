@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EWANTO GmbH - Neues Produkt hinzufügen</title>
+  <title>Preis liste</title>
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <header>
-    <h2>EWANTO GmbH - Neues Produkt hinzufügen</h2>
+    <h1>EWANTO GmbH - Neue Preisliste erstellen.</h1>
   </header>
 
   <form id="productForm" class="form-container">
@@ -18,7 +18,8 @@
     </div>
     <div class="button-group">
       <input type="submit" value="Produkt hinzufügen">
-      <button id="dl-pdf" type="button">PDF herunterladen</button>
+      <!--<button id="dl-pdf" type="button">PDF herunterladen</button>//-->
+      <button class="print-button" onclick="window.print()">Als PDF herunterladen</button>
     </div>
   </form>
   <h5>Klicken Sie zweimal auf das Bild, um ein Element zu löschen</h5>
@@ -26,17 +27,24 @@
   <div id="d-pdf">
     <h2>Topseller Preisliste DE</h2>
     <div class="company-info">
-      <span id="current-date"></span><br>
-      EWANTO GmbH<br>
-      Am Studio 2A D-12489 Berlin<br>
-      Telefon: +49 30 / 770 192 939<br>
-      E-Mail: b2b@ewanto.de<br>
-      Internet: www.hgbgh.de
-    </div>
+      <div class="text-container">
+        <span id="current-date"></span><br>
+        🏢 EWANTO GmbH <br>
+        📍 Am Studio 2A D-12489 Berlin <br>
+        ☎ Telefon: +49 30 / 770 192 939 <br>
+        📧 E-Mail: b2b@ewanto.de  <br>
+        🌐 Internet: www.hgbgh.de 
+      </div>
+      <div class="logo-container">
+          <img src="https://ewanto.de/media/71/d3/c9/1739553353/EWANTO_LOGO_GROSS.png?ts=1739553353" alt="Ewanto_logo" class="logo">
+      </div>
+  </div>
+  
     <table id="productTable">
       <thead>
         <tr>
           <th>Bild</th>
+          <th>Nr</th>
           <th>Hersteller</th>
           <th>Name</th>
           <th>Hersteller Nr</th>

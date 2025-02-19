@@ -2,7 +2,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f6f9;
     margin: 0;
-    padding: 20px;
     color: #333;
 }
 
@@ -11,12 +10,14 @@ h2 {
     font-size: 24px;
     font-weight: 600;
     border-bottom: 2px solid #ffa128; 
-    padding-bottom: 12px;
-    margin-bottom: 30px;
+    padding-bottom: 2px;
+    margin-bottom: 1px;
+    text-align: center; 
 }
 
-#dl-pdf {
-    background-color: #ffa128;
+
+.print-button{
+    background-color: #ff5e28;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -88,7 +89,7 @@ input[type="submit"]:hover {
 table {
     border-collapse: collapse;
     width: 100%;
-    /*table-layout: fixed;*/
+    table-layout: fixed;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     border-radius: 8px;
@@ -185,3 +186,55 @@ footer p {
     height: auto;
   }
 }
+
+
+#current-date{
+    display: none;
+}
+
+
+@media print {
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    a,h5,h1,form {
+        display: none;
+    }
+
+    .print-button {
+        display: none;
+    }
+    #productForm{
+        display: none;
+    }
+    #current-date{
+        display: block;
+    }
+}
+.company-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-container {
+    flex: 1;
+    text-align: left; 
+}
+
+
+
+.logo-container {
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
+}
+

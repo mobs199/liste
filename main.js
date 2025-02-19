@@ -43,6 +43,7 @@
           });
 
           if (foundItem) {
+            const SKUNr = foundItem[skuKey] || "";
             const name = foundItem.name || "";
             const herstellerName = foundItem.hersteller_name || "";
             const herstellerNr = foundItem.hersteller_nr || "";
@@ -55,7 +56,8 @@
 
             const newRow = document.createElement("tr");
             newRow.innerHTML = `
-              <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
+            <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
+            <td>${SKUNr}</td>
               <td>${herstellerName}</td>
               <td>${name}</td>
               <td>${herstellerNr}</td>
@@ -79,7 +81,7 @@
         document.getElementById("productForm").reset();
       });
 
-      document.getElementById("dl-pdf").addEventListener("click", function () {
+     document.getElementById("dl-pdf").addEventListener("click", function () {
         const element = document.getElementById("d-pdf");
         const opt = {
           margin: 1,
