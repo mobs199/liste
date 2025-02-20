@@ -5,16 +5,6 @@ body {
     color: #333;
 }
 
-h2 {
-    color: #2c3e50;
-    font-size: 24px;
-    font-weight: 600;
-    border-bottom: 2px solid #ffa128; 
-    padding-bottom: 2px;
-    margin-bottom: 1px;
-    text-align: center; 
-}
-
 
 .print-button{
     background-color: #ff5e28;
@@ -86,20 +76,52 @@ input[type="submit"]:hover {
     background-color: #e69124; 
 }
 
+
+
+
+
+#current-date{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 table {
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
     border-radius: 8px;
 }
 
+
+th:nth-child(1), td:nth-child(1) { width: 50px; }  
+th:nth-child(2), td:nth-child(2) { width: 60px; } 
+th:nth-child(3), td:nth-child(3) { width: 90px; } 
+th:nth-child(5), td:nth-child(5) { width: 80px; } 
+th:nth-child(6), td:nth-child(6),
+th:nth-child(7), td:nth-child(7),
+th:nth-child(8), td:nth-child(8),
+th:nth-child(9), td:nth-child(9) { width: 70px; } 
+th:nth-child(4), td:nth-child(4) { 
+    width: auto; 
+    max-width: 250px; 
+} 
+
 th, td {
-    padding: 12px;
+    padding: 8px;
     text-align: center;
     vertical-align: middle;
-    font-size: 13px;
+    font-size: 11px; 
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -121,13 +143,14 @@ td:hover {
     background-color: #f1f1f1;
 }
 
-tr, td, th {
-  page-break-inside: avoid !important;
-  /*break-inside: avoid !important;*/
+td:nth-child(4) {
+    text-align: left;
+    padding-left: 10px;
+    font-size: 12px;
 }
 
 .product-image {
-    width: 60px;
+    width: 45px;  
     height: auto;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -138,6 +161,74 @@ tr, td, th {
     color: #999;
     font-style: italic;
 }
+
+@media print {
+    table {
+        width: 100%;
+        border: 1px solid #000;
+        box-shadow: none;
+        background-color: white;
+        table-layout: fixed;
+    }
+
+    th:nth-child(1), td:nth-child(1) { width: 40px !important; }  /* Bild */
+    th:nth-child(2), td:nth-child(2) { width: 50px !important; }  /* Nr */
+    th:nth-child(3), td:nth-child(3) { width: 70px !important; }  /* Hersteller */
+    th:nth-child(4), td:nth-child(4) {
+        width: 200px !important; 
+        max-width: 220px !important;
+        text-align: left !important; 
+        padding-left: 10px !important;
+    }
+    th:nth-child(5), td:nth-child(5) { width: 70px !important; }  /* Hersteller Nr */
+    th:nth-child(6), td:nth-child(6),
+    th:nth-child(7), td:nth-child(7),
+    th:nth-child(8), td:nth-child(8),
+    th:nth-child(9), td:nth-child(9) { width: 50px !important; } 
+
+    th {
+        color: black !important;
+        border: 1px solid #000;
+        font-size: 10px;
+    }
+
+    td {
+        font-size: 10px;
+        padding: 5px !important;
+        background-color: white !important;
+    }
+
+    .product-image {
+        width: 40px;
+    }
+
+    tr, td, th {
+        page-break-inside: avoid !important;
+    }
+
+    .print-button,
+    #productForm,
+    a, h5, h1, form {
+        display: none;
+    }
+    
+    #current-date {
+        display: block;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 footer {
     background-color: #fff;
@@ -152,7 +243,6 @@ footer p {
     margin: 0;
 }
 
-/* Responsive Design for Mobile */
 @media screen and (max-width: 768px) {
     .form-container {
         padding: 15px;
@@ -188,53 +278,36 @@ footer p {
 }
 
 
-#current-date{
-    display: none;
-}
 
-
-@media print {
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-
-    a,h5,h1,form {
-        display: none;
-    }
-
-    .print-button {
-        display: none;
-    }
-    #productForm{
-        display: none;
-    }
-    #current-date{
-        display: block;
-    }
-}
 .company-info {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
     align-items: center;
+    gap: 20px; 
+    padding: 10px;
 }
 
-.text-container {
-    flex: 1;
-    text-align: left; 
+h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+    border-bottom: 2px solid #ffa128;
+    padding-bottom: 2px;
+    margin-bottom: 5px;
 }
 
-
+.text-container, .contact-container, .email-container {
+    text-align: left;
+    font-size: x-small;
+}
 
 .logo-container {
     flex-shrink: 0;
-    margin-left: 20px;
 }
 
 .logo {
-    width: 250px;
+    width: 180px;
     height: auto;
 }
+
 

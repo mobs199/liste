@@ -56,8 +56,8 @@
 
             const newRow = document.createElement("tr");
             newRow.innerHTML = `
-            <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
             <td>${SKUNr}</td>
+            <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
               <td>${herstellerName}</td>
               <td>${name}</td>
               <td>${herstellerNr}</td>
