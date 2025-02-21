@@ -4,7 +4,7 @@
     let csvData = [];
     let skuKey = "sku";
 
-    Papa.parse("EWANTO_Produkt_js.csv", {
+    Papa.parse("EWANTO_Produkt.csv", {
       download: true,
       header: true,
       dynamicTyping: true,
