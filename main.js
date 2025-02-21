@@ -45,21 +45,22 @@
           if (foundItem) {
             const SKUNr = foundItem[skuKey] || "";
             const name = foundItem.name || "";
+            const ean = foundItem.tentative_ean || "";
             const herstellerName = foundItem.hersteller_name || "";
             const herstellerNr = foundItem.hersteller_nr || "";
             const imageUrl = foundItem.public_image_0 || "";
             const preisEbaySumme = parseFloat(foundItem.preis_ebay_summe) || 0; 
-            const preis250 = (preisEbaySumme).toFixed(2) + "€";
-            const preis500 = (preisEbaySumme / 2).toFixed(2) + "€";
-            const preis1000 = (preisEbaySumme / 4).toFixed(2) + "€";
-            const preis5000 = (preisEbaySumme / 6).toFixed(2) + "€";
+            const preis250 = (preisEbaySumme * 1.24).toFixed(2) + "€";
+            const preis500 = (preisEbaySumme * 1.14).toFixed(2) + "€";
+            const preis1000 = (preisEbaySumme * 1.10).toFixed(2) + "€";
+            const preis5000 = (preisEbaySumme * 1.06 ).toFixed(2) + "€";
 
             const newRow = document.createElement("tr");
             newRow.innerHTML = `
             <td>${SKUNr}</td>
             <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
               <td>${herstellerName}</td>
-              <td>${name}</td>
+              <td>${name}<br>ean Nummer:${ean}</td>
               <td>${herstellerNr}</td>
               <td>${preis250}</td>
               <td>${preis500}</td>
