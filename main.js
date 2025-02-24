@@ -48,7 +48,11 @@
             const ean = foundItem.tentative_ean || "";
             const herstellerName = foundItem.hersteller_name || "";
             const herstellerNr = foundItem.hersteller_nr || "";
-            const imageUrl = foundItem.public_image_0 || "";
+           /* const imageUrl = foundItem.export_ts || "";
+            if (imageUrl === "") {
+               imageUrl = foundItem.public_image_0 || "";
+            }*/
+            const imageUrl = foundItem.export_ts || foundItem.public_image_0|| "";
             const preisEbaySumme = parseFloat(foundItem.preis_ebay_summe) || 0; 
             const preis250 = (preisEbaySumme * 1.24).toFixed(2) + "€";
             const preis500 = (preisEbaySumme * 1.14).toFixed(2) + "€";
