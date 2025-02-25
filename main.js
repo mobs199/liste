@@ -1,7 +1,7 @@
 
     document.getElementById("current-date").innerHTML = new Date().toLocaleDateString("de-DE");
-
     let csvData = [];
+    let keinImg = [];
     let skuKey = "sku";
 
     Papa.parse("EWANTO_Produkt.csv", {
@@ -53,6 +53,9 @@
                imageUrl = foundItem.public_image_0 || "";
             }*/
             const imageUrl = foundItem.export_ts || foundItem.public_image_0|| "";
+            if(imageUrl===""){
+              keinImg.unshift(SKUNr);
+            }
             const preisEbaySumme = parseFloat(foundItem.preis_ebay_summe) || 0; 
             const preis250 = (preisEbaySumme * 1.24).toFixed(2) + "€";
             const preis500 = (preisEbaySumme * 1.14).toFixed(2) + "€";
@@ -82,7 +85,7 @@
             console.warn("SKU nicht gefunden:", skuValue);
           }
         });
-
+        console.log(keinImg)
         document.getElementById("productForm").reset();
       });
     });
