@@ -48,11 +48,14 @@
             const ean = foundItem.tentative_ean || "";
             const herstellerName = foundItem.hersteller_name || "";
             const herstellerNr = foundItem.hersteller_nr || "";
-             const imageUrl = foundItem.export_ts || "";
-            if (imageUrl === "" || imageUrl) {
-               imageUrl = foundItem.public_image_0 || "";
+
+
+            let imageUrl = foundItem.export_ts ? String(foundItem.export_ts).trim() : "";
+            if (imageUrl === "" || !imageUrl.startsWith("https://i.ewanto.de")) {
+               imageUrl = foundItem.public_image_0 ? String(foundItem.public_image_0).trim() : "";
             }
             
+
             if(imageUrl===""){
               keinImg.unshift(SKUNr);
             }
