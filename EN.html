@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price List</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <nav>
+          <h1>EWANTO GmbH - Neue Preisliste erstellen.</h1>
+          <a href="index.html"><h4>🇩🇪</h4></a>
+        </nav>
+      </header>
+
+  <form id="productForm" class="form-container">
+    <div class="input-group">
+      <label for="sku">SKU(s):</label>
+      <textarea id="sku" name="sku" required placeholder=" SKU  "></textarea>
+    </div>
+    <div class="button-group">
+      <input type="submit" value="Add Product">
+     
+      <button class="print-button" onclick="window.print()">Download as PDF</button>
+    </div>
+  </form>
+  <h5>Double click on the image to delete an item</h5>
+  
+  <div id="d-pdf">
+    <h2>Top Seller Price List EN</h2>
+    <div class="company-info">
+      <div class="text-container">
+        
+        <span id="current-date"></span>
+        <p>🏢 EWANTO GmbH</p>
+      </div>
+    
+      <div class="contact-container">
+        <p>📍 Am Studio 2A D-12489 Berlin</p>
+        <p>☎ Phone: +49 30 / 770 192 939</p>
+      </div>
+    
+      <div class="email-container">
+        <p>📧 Email: b2b@ewanto.de</p>
+        <p>🌐 Website: www.hgbgh.de</p>
+      </div>
+    
+      <div class="logo-container">
+        <img src="https://ewanto.de/media/71/d3/c9/1739553353/EWANTO_LOGO_GROSS.png?ts=1739553353" alt="Ewanto_logo" class="logo">
+      </div>
+    </div>
+    
+  
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Image</th>
+          <th>Manufacturer</th>
+          <th>Name</th>
+          <th>Manufacturer No.</th>
+          <th>250</th>
+          <th>500</th>
+          <th>1000</th>
+          <th>5000</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div>
+      <br>
+    <footer>
+      <div>
+      <p>
+        EWANTO GmbH • Am Studio 2A • 12489 Berlin<br>
+        ☎ +49 30 770 192 939 • Fax +49 (0) 030 / 770 192 935 • 📧 b2b@ewanto.de • www.hgbgh.de<br>
+        Managing Director Christoph-Benjamin Sponholz<br>
+        Commercial Register Charlottenburg District Court HRB 149688 • VAT-ID: DE28 1218027
+      </p>
+    </footer>
+  </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
