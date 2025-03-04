@@ -3,10 +3,9 @@ document.getElementById("current-date").innerHTML = new Date().toLocaleDateStrin
 let csvData = [];
 let keinImg = [];
 let skuKey = "sku";
-let isDollar = false; // الحالة: افتراضيًا الأسعار باليورو
+let isDollar = false; 
 
-// الحصول على سعر الصرف من يورو إلى دولار باستخدام API
-let exchangeRateEURtoUSD = 1;  // سيتم تحديثه ببيانات الـ API
+let exchangeRateEURtoUSD = 1;  
 
 Papa.parse("EWANTO_Produkt.csv", {
   download: true,
@@ -31,7 +30,6 @@ Papa.parse("EWANTO_Produkt.csv", {
   }
 });
 
-// الحصول على سعر الصرف من يورو إلى دولار باستخدام API
 fetch("https://v6.exchangerate-api.com/v6/1f496139322ff0f6f170f135/latest/EUR")
   .then(response => response.json())
   .then(data => {
@@ -42,12 +40,11 @@ fetch("https://v6.exchangerate-api.com/v6/1f496139322ff0f6f170f135/latest/EUR")
   .catch(error => console.error('Error getting exchange rate:', error));
 
 document.addEventListener("DOMContentLoaded", () => {
-  // تفعيل الزر لتبديل العملة
   document.getElementById("currency-toggle-btn").addEventListener("click", () => {
-    isDollar = !isDollar; // تبديل العملة بين الدولار واليورو
+    isDollar = !isDollar; 
     const button = document.getElementById("currency-toggle-btn");
-    button.innerHTML = isDollar ? "Euro €" : "USD $";  // تغيير نص الزر
-    updateTablePrices(); // تحديث الأسعار في الجدول
+    button.innerHTML = isDollar ? "Euro €" : "USD $"; 
+    updateTablePrices();
   });
 
   document.getElementById("productForm").addEventListener("submit", function (e) {
@@ -80,16 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
           keinImg.unshift(SKUNr);
         }
 
-        // قراءة السعر الأساسي من CSV (بافتراض أنه باليورو)
         const preisEbaySumme = parseFloat(foundItem.preis_ebay_summe) || 0;
         
-        // تخزين السعر الأساسي في صف الجدول لاستخدامه لاحقًا في تحديث الأسعار
         const newRow = document.createElement("tr");
         newRow.dataset.preisEbaySumme = preisEbaySumme;
 
-        // حساب الأسعار بناءً على العملة والضرب في معامل معين:
-        // في حالة اليورو: السعر = preisEbaySumme * معامل
-        // في حالة الدولار: السعر = preisEbaySumme * معامل * exchangeRateEURtoUSD
         const preis250 = (isDollar ? (preisEbaySumme * 1.24 * exchangeRateEURtoUSD) : preisEbaySumme * 1.24).toFixed(2) + (isDollar ? "$" : "€");
         const preis500 = (isDollar ? (preisEbaySumme * 1.14 * exchangeRateEURtoUSD) : preisEbaySumme * 1.14).toFixed(2) + (isDollar ? "$" : "€");
         const preis1000 = (isDollar ? (preisEbaySumme * 1.10 * exchangeRateEURtoUSD) : preisEbaySumme * 1.10).toFixed(2) + (isDollar ? "$" : "€");
@@ -123,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// دالة لتحديث الأسعار في الجدول عند تبديل العملة
 function updateTablePrices() {
   const rows = document.querySelectorAll("#productTable tbody tr");
   rows.forEach(row => {
@@ -132,7 +123,6 @@ function updateTablePrices() {
     const preis1000Cell = row.cells[7];
     const preis5000Cell = row.cells[8];
     
-    // استعادة السعر الأساسي من الـ dataset
     const preisEbaySumme = parseFloat(row.dataset.preisEbaySumme) || 0;
     
     preis250Cell.textContent = (isDollar ? (preisEbaySumme * 1.24 * exchangeRateEURtoUSD) : preisEbaySumme * 1.24).toFixed(2) + (isDollar ? "$" : "€");
