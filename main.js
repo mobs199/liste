@@ -3,10 +3,10 @@ document.getElementById("current-date").innerHTML = new Date().toLocaleDateStrin
 let csvData = [];
 let keinImg = [];
 let skuKey = "sku";
-let isDollar = false; 
+let isDollar = false;
+let exchangeRateEURtoUSD = 1;
 
-let exchangeRateEURtoUSD = 1;  
-
+// CSV-Daten laden
 Papa.parse("EWANTO_Produkt.csv", {
   download: true,
   header: true,
@@ -14,90 +14,81 @@ Papa.parse("EWANTO_Produkt.csv", {
   skipEmptyLines: true,
   complete: function (results) {
     csvData = results.data || [];
-    if (csvData.length > 0) {
-      Object.keys(csvData[0]).forEach((key) => {
-        const cleanKey = key.replace(/\uFEFF/g, '').trim().toLowerCase();
-        if (cleanKey === "sku") {
-          skuKey = key;
-        }
-      });
-    } else {
-      console.warn("Die CSV-Datei ist leer oder konnte nicht geladen werden.");
-    }
   },
   error: function (err) {
-    console.error("Error loading CSV:", err);
+    console.error("Fehler beim Laden der CSV:", err);
   }
 });
 
+// Wechselkurs abrufen
 fetch("https://v6.exchangerate-api.com/v6/1f496139322ff0f6f170f135/latest/EUR")
   .then(response => response.json())
   .then(data => {
-    if (data && data.conversion_rates && data.conversion_rates.USD) {
+    if (data?.conversion_rates?.USD) {
       exchangeRateEURtoUSD = data.conversion_rates.USD;
     }
   })
-  .catch(error => console.error('Error getting exchange rate:', error));
+  .catch(error => console.error('Fehler beim Abrufen des Wechselkurses:', error));
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("currency-toggle-btn").addEventListener("click", () => {
-    isDollar = !isDollar; 
-    const button = document.getElementById("currency-toggle-btn");
-    button.innerHTML = isDollar ? "Euro €" : "USD $"; 
+    isDollar = !isDollar;
+    document.getElementById("currency-toggle-btn").innerHTML = isDollar ? "Euro €" : "USD $";
     updateTablePrices();
   });
 
   document.getElementById("productForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    
-    const skuInput = document.getElementById("sku").value;
-    const skuList = skuInput.split(/[\n,]+/).map(sku => sku.trim()).filter(sku => sku !== "");
+
+    const inputText = document.getElementById("sku").value;
+    const inputList = inputText.split(/[\n,]+/).map(entry => entry.trim()).filter(entry => entry !== "");
 
     const tbody = document.querySelector("#productTable tbody");
 
-    skuList.forEach((skuValue) => {
-      const foundItem = csvData.find((item) => {
-        if (!item[skuKey]) return false;
-        return item[skuKey].toString().trim() === skuValue;
-      });
+    inputList.forEach((inputValue) => {
+      const foundItems = csvData.filter(item => 
+        item[skuKey]?.toString().trim() === inputValue ||
+        item.hersteller_name?.toLowerCase().trim() === inputValue.toLowerCase()
+      );
 
-      if (foundItem) {
-        const SKUNr = foundItem[skuKey] || "";
-        const name = foundItem.name || "";
-        const ean = foundItem.tentative_ean || "";
-        const herstellerName = foundItem.hersteller_name || "";
-        const herstellerNr = foundItem.hersteller_nr || "";
-
-        let imageUrl = foundItem.export_ts ? String(foundItem.export_ts).trim() : "";
-        if (imageUrl === "" || !imageUrl.startsWith("https://i.ewanto.de")) {
-           imageUrl = foundItem.public_image_0 ? String(foundItem.public_image_0).trim() : "";
-        }
-        
-        if (imageUrl === "") {
-          keinImg.unshift(SKUNr);
-        }
+      foundItems.forEach(foundItem => {
+        let isSet = foundItem.type || "";
+if (isSet === "set") {
+  return;
+}
 
         const preisEbaySumme = parseFloat(foundItem.preis_ebay_summe) || 0;
-        
+        const herstellerName = foundItem.hersteller_name || "";
+        const herstellerNr = foundItem.hersteller_nr || "";
+        const name = foundItem.name || "";
+        const ean = foundItem.tentative_ean || "";
+        let imageUrl = (typeof foundItem.export_ts === "string" ? foundItem.export_ts.trim() : "") ||
+        (typeof foundItem.public_image_0 === "string" ? foundItem.public_image_0.trim() : "");
+
+        if (!imageUrl.startsWith("https://i.ewanto.de")) {
+          keinImg.unshift(foundItem[skuKey]);
+        }
+
         const newRow = document.createElement("tr");
         newRow.dataset.preisEbaySumme = preisEbaySumme;
-
-        const preis250 = (isDollar ? (preisEbaySumme * 1.24 * exchangeRateEURtoUSD) : preisEbaySumme * 1.24).toFixed(2) + (isDollar ? "$" : "€");
-        const preis500 = (isDollar ? (preisEbaySumme * 1.14 * exchangeRateEURtoUSD) : preisEbaySumme * 1.14).toFixed(2) + (isDollar ? "$" : "€");
-        const preis1000 = (isDollar ? (preisEbaySumme * 1.10 * exchangeRateEURtoUSD) : preisEbaySumme * 1.10).toFixed(2) + (isDollar ? "$" : "€");
-        const preis5000 = (isDollar ? (preisEbaySumme * 1.06 * exchangeRateEURtoUSD) : preisEbaySumme * 1.06).toFixed(2) + (isDollar ? "$" : "€");
+        
+        function calcPrice(factor) {
+          return (isDollar ? preisEbaySumme * factor * exchangeRateEURtoUSD : preisEbaySumme * factor)
+            .toFixed(2) + (isDollar ? "$" : "€");
+        }
 
         newRow.innerHTML = `
-          <td>${SKUNr}</td>
+          <td>${foundItem[skuKey]}</td>
           <td><img src="${imageUrl}" alt="${name}" class="product-image"></td>
           <td>${herstellerName}</td>
-          <td>${name}<br>EAN Nummer: ${ean}</td>
+          <td>${name}<br>EAN: ${ean}</td>
           <td>${herstellerNr}</td>
-          <td>${preis250}</td>
-          <td>${preis500}</td>
-          <td>${preis1000}</td>
-          <td>${preis5000}</td>
+          <td class="price-250">${calcPrice(1.24)}</td>
+          <td class="price-500">${calcPrice(1.14)}</td>
+          <td class="price-1000">${calcPrice(1.10)}</td>
+          <td class="price-5000">${calcPrice(1.06)}</td>
         `;
+
         tbody.appendChild(newRow);
 
         newRow.querySelector(".product-image").addEventListener("dblclick", function () {
@@ -105,29 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
             newRow.remove();
           }
         });
-      } else {
-        console.warn("SKU nicht gefunden:", skuValue);
-      }
+      });
     });
 
-    console.log(keinImg);
     document.getElementById("productForm").reset();
   });
 });
 
 function updateTablePrices() {
-  const rows = document.querySelectorAll("#productTable tbody tr");
-  rows.forEach(row => {
-    const preis250Cell = row.cells[5];
-    const preis500Cell = row.cells[6];
-    const preis1000Cell = row.cells[7];
-    const preis5000Cell = row.cells[8];
-    
+  document.querySelectorAll("#productTable tbody tr").forEach(row => {
     const preisEbaySumme = parseFloat(row.dataset.preisEbaySumme) || 0;
     
-    preis250Cell.textContent = (isDollar ? (preisEbaySumme * 1.24 * exchangeRateEURtoUSD) : preisEbaySumme * 1.24).toFixed(2) + (isDollar ? "$" : "€");
-    preis500Cell.textContent = (isDollar ? (preisEbaySumme * 1.14 * exchangeRateEURtoUSD) : preisEbaySumme * 1.14).toFixed(2) + (isDollar ? "$" : "€");
-    preis1000Cell.textContent = (isDollar ? (preisEbaySumme * 1.10 * exchangeRateEURtoUSD) : preisEbaySumme * 1.10).toFixed(2) + (isDollar ? "$" : "€");
-    preis5000Cell.textContent = (isDollar ? (preisEbaySumme * 1.06 * exchangeRateEURtoUSD) : preisEbaySumme * 1.06).toFixed(2) + (isDollar ? "$" : "€");
+    function calcPrice(factor) {
+      return (isDollar ? preisEbaySumme * factor * exchangeRateEURtoUSD : preisEbaySumme * factor)
+        .toFixed(2) + (isDollar ? "$" : "€");
+    }
+
+    row.querySelector(".price-250").textContent = calcPrice(1.24);
+    row.querySelector(".price-500").textContent = calcPrice(1.14);
+    row.querySelector(".price-1000").textContent = calcPrice(1.10);
+    row.querySelector(".price-5000").textContent = calcPrice(1.06);
   });
 }
