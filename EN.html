@@ -11,7 +11,6 @@
         <nav>
           <h1>EWANTO GmbH - Neue Preisliste erstellen.</h1>
           <a href="index.html"><h4>🇩🇪</h4></a>
-          <button id="currency-toggle-btn">USD $</button>
 
         </nav>
       </header>
@@ -23,8 +22,8 @@
     </div>
     <div class="button-group">
       <input type="submit" value="Add Product">
-     
       <button class="print-button" onclick="window.print()">Download as PDF</button>
+      <button id="currency-toggle-btn">USD $</button>
     </div>
   </form>
   <h5>Double click on the image to delete an item</h5>
@@ -52,8 +51,9 @@
         <img src="https://ewanto.de/media/71/d3/c9/1739553353/EWANTO_LOGO_GROSS.png?ts=1739553353" alt="Ewanto_logo" class="logo">
       </div>
     </div>
-    
-  
+    <div>
+    <p class="info-text">The quantities in our price list refer to the original sales unit of the product. For example, “250 pieces” in this case means 250 units of the original packaging unit, such as 250 pairs of batteries</p>
+  </div>
     <table id="productTable">
       <thead>
         <tr>
