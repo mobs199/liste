@@ -9,26 +9,32 @@
 <body>
   <header>
     <nav>
-      <h1>EWANTO GmbH - Neue Preisliste erstellen.</h1>
-      <a href="EN.html"><h4>🇬🇧</h4></a>
+        <h1>EWANTO GmbH - Neue Preisliste erstellen.</h1>
+        <div class="language-switch">
+            <a href="index.html">🇩🇪</a>
+            <a href="EN.html">🇬🇧</a>
+        </div>
     </nav>
-  </header>
+</header>
+
 
   <form id="productForm" class="form-container">
     <div class="input-group">
-      <label for="sku">SKU(s):</label>
-      <textarea id="sku" name="sku" required placeholder=" SKU  "></textarea>
+      <label for="sku">SKU(s) / Hersteller:</label>
+      <textarea id="sku" name="sku" required placeholder=" SKU oder Herstellername eingeben"></textarea>
     </div>
     <div class="button-group">
       <input type="submit" value="Produkt hinzufügen">
       <button class="print-button" onclick="window.print()">Als PDF herunterladen</button>
-      <button id="currency-toggle-btn">USD $</button>
-    </div>
+      <button id="eur-btn" class="currency-toggle-btn">EUR €</button>
+      <button id="usd-btn" class="currency-toggle-btn">USD $</button>
+  </div>
+  
   </form>
   <h5>Klicken Sie zweimal auf das Bild, um ein Element zu löschen</h5>
   
   <div id="d-pdf">
-    <h2>Topseller Preisliste DE</h2>
+    <h2>Ewanto Preisliste DE</h2>
     <div class="company-info">
       <div class="text-container">
         
@@ -51,7 +57,7 @@
       </div>
     </div>
     <div>
-    <p class="info-text">Die Mengenangaben in unserer Preisliste beziehen sich auf die originale Verkaufseinheit des Produkts. Zum Beispiel bedeutet „250 Stück“ in diesem Fall 250 Einheiten der ursprünglichen Verpackungseinheit, wie etwa 250 Paare von Batterien</p>
+    <p class="info-text">Die Mengenangaben in unserer Preisliste beziehen sich auf die originale Verkaufseinheit des Produkts. Zum Beispiel bedeutet „250 Stück“ in diesem Fall 250 Einheiten der ursprünglichen Verpackungseinheit, wie etwa 250 Paare von Batterien.</p>
   </div>
     <table id="productTable">
       <thead>

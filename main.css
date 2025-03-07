@@ -5,7 +5,7 @@ body {
     color: #333;
 }
 
-#currency-toggle-btn{
+.currency-toggle-btn{
     background-color: rgb(75, 133, 241);
     color: white;
     border: none;
@@ -97,7 +97,9 @@ input[type="submit"]:hover {
 }
 
 header {
+    background-color: #f8f9fa;
     padding: 15px 0;
+    border-bottom: 2px solid #ddd;
 }
 
 nav {
@@ -107,19 +109,28 @@ nav {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    font-family: Arial, sans-serif;
 }
 
 h1 {
-    color: #000000;
-    font-size: 24px;
+    font-size: 22px;
+    color: #333;
     margin: 0;
 }
 
-a {
-    text-decoration: none;
+.language-switch {
     display: flex;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
+    gap: 10px;
+}
+
+.language-switch a {
+    font-size: 22px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.language-switch a:hover {
+    transform: scale(1.2);
 }
 
 a:hover {
